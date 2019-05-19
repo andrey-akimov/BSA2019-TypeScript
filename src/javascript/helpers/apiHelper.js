@@ -15,4 +15,14 @@ function callApi(endpoind, method) {
     });
 }
 
-export { callApi }
+async function getData(urlEndpoint){
+  try {
+    const apiResult = await callApi(urlEndpoint, 'GET');
+
+    return JSON.parse(atob(apiResult.content));
+  } catch (error) {
+    throw error;
+  }
+}
+
+export { getData }
