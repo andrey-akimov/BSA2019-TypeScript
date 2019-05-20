@@ -19,6 +19,9 @@ class App {
       root.innerHTML = '';
 
       App.rootElement.appendChild(fightersElement);
+
+      const click = () => document.getElementById('click').play();
+      document.addEventListener('click', click, false)
     } catch (error) {
       console.warn(error);
       App.rootElement.innerText = 'Failed to load data';
