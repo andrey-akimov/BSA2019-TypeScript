@@ -75,12 +75,11 @@ class FightersView extends View {
 
       const selectListener = () => {
         removeSelectListener();
-        const { health, attack } = temporaryData;
-        const fighter = new Fighter(nameInput.value, health, attack, defense);
+        const { health, attack, source } = temporaryData;
         if (this.fightFunc) {
-          this.fightFunc(fighter)
+          this.fightFunc(new Fighter(nameInput.value, health, attack, defense, source, false))
         } else {
-          this.fightFunc = fight(fighter);
+          this.fightFunc = fight(new Fighter(nameInput.value, health, attack, defense, source, true));
         }
       };
       const modalSelect = document.getElementById('select-modal');

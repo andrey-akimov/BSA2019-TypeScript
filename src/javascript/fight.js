@@ -10,6 +10,7 @@ const fight = fighter1 => fighter2 => {
   setTimeout(() => {
     const root = document.getElementById('root');
     root.innerHTML = '';
+    root.style.backgroundImage = 'url(http://2.bp.blogspot.com/-1jTKOb4ibm8/UxVZ-dSxo9I/AAAAAAAAACU/IIp8fZlucfA/s1600/chino.jpg)';
 
     const healthBarContainer = document.createElement('div');
     healthBarContainer.classList.add('healthbar-container');
@@ -18,6 +19,23 @@ const fight = fighter1 => fighter2 => {
     const dummyDiv = document.createElement('div');
     dummyDiv.classList.add('dummy');
     root.appendChild(dummyDiv);
+
+    const printFighter = (fighter) => {
+      const fighterImg = document.createElement('img');
+      fighterImg.classList.add('fighter');
+      const { img, isSecond } = fighter;
+      fighterImg.src = img;
+      fighterImg.style.backgroundRepeat = 'no-repeat';
+      fighterImg.style.height = '550px';
+      fighterImg.style.width = '300px';
+      dummyDiv.appendChild(fighterImg);
+      if(!isSecond){
+        fighterImg.style.transform = 'rotateY(180deg)';
+      }
+    }
+
+    printFighter(fighter1);
+    printFighter(fighter2);
 
     const createHealthBar = (health, name) => {
       const healthBar = document.createElement('progress');

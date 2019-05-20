@@ -13,6 +13,10 @@ body {
     justify-content: center;
     height: 100%;
     width: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: bottom center;
 }
 
 .fighters {
@@ -22,6 +26,10 @@ body {
     flex: 1;
     flex-wrap: wrap;
     width: 100%;
+    background-image: url('https://i0.wp.com/s-media-cache-ak0.pinimg.com/originals/a6/3f/7c/a63f7c9672f3c6b61faf4f220383c6b6.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 .fighter {
@@ -72,11 +80,15 @@ body {
 
 .healthbar-container .name {
     width: 45%;
+    color: yellow;
 }
 
 .dummy {
     width: 100%;
     height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
 }
 
 #winner-modal {
@@ -100,4 +112,8 @@ body {
 
 #winner-modal i {
     padding-bottom: 50px;
+}
+
+.nes-btn.is-primary {
+    background-color: transparent;
 }

@@ -1,9 +1,11 @@
 class Fighter {
-  constructor(name, health, attack, defense){
+  constructor(name, health, attack, defense, img, isSecond){
     this.name = name;
     this.health = health;
     this.attack = attack;
     this.defense = defense;
+    this.img = img;
+    this.isSecond = isSecond;
   }
 
   _luckyChance(){
