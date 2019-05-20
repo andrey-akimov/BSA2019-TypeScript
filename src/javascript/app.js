@@ -16,6 +16,7 @@ class App {
       const fighters = await fighterService.getFighters();
       const fightersView = new FightersView(fighters);
       const fightersElement = fightersView.element;
+      root.innerHTML = '';
 
       App.rootElement.appendChild(fightersElement);
     } catch (error) {

@@ -32,12 +32,15 @@ class FightersView extends View {
       const { _id } = fighter;
       const thisMap = this.fightersDetailsMap;
       if (!thisMap.has(_id) || !thisMap.get(_id).health) {
+        const loadingElement = document.getElementById('loading-overlay');
+        loadingElement.style.visibility = 'visible';
         const fighterDetails = await fighterService.getFighterDetails(_id);
         thisMap.set(_id, { ...fighter, ...fighterDetails });
+        loadingElement.style.visibility = 'hidden';
       }
 
       // modal
-      document.getElementById('dialog-dark').showModal();
+      document.getElementById('fighter-modal').showModal();
       const currentFighter = thisMap.get(_id);
       const temporaryData = { ...currentFighter };
       const { name, health, attack, defense } = temporaryData;

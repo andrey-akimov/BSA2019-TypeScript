@@ -1,5 +1,12 @@
+import App from './app';
+
+let player1;
+let player2;
+
 const fight = fighter1 => fighter2 => {
-  
+  player1 = Object.assign( Object.create( Object.getPrototypeOf(fighter1)), fighter1);
+  player2 = Object.assign( Object.create( Object.getPrototypeOf(fighter2)), fighter2);
+
   setTimeout(() => {
     const root = document.getElementById('root');
     root.innerHTML = '';
@@ -35,20 +42,37 @@ const fight = fighter1 => fighter2 => {
       healthBar.value = firstFighter.health;
     };
 
+    const showWinnerModal = (name) => {
+      setTimeout(() => {
+        document.getElementById('winner-modal').showModal();
+        document.querySelector('#winner-modal .title').innerHTML = `${name} won!`;
+        document.getElementById('replay-modal').addEventListener(
+          'click',
+          () => fight(player1)(player2),
+          false
+        );
+        document.getElementById('main-menu-modal').addEventListener('click', () => new App(), false);
+      }, 500);
+    }
+
     function battle(){
       makePunch(fighter1, fighter2, healthBar1);
       console.log(`${fighter1.name} left ${fighter1.health} points of damage`);
       if (fighter1.health <= 0) {
         console.log(`${fighter2.name} wins!`);
+        showWinnerModal(fighter2.name);
         return;
       }
+
       makePunch(fighter2, fighter1, healthBar2);
       console.log(`${fighter2.name} left ${fighter2.health} points of damage`);
       if (fighter2.health <= 0) {
         console.log(`${fighter1.name} wins!`);
+        showWinnerModal(fighter1.name);
         return;
       }
-      setTimeout(battle, 500);
+
+      setTimeout(battle, 1000);
     }
     battle();
   }, 500);
