@@ -14,19 +14,54 @@
     <div id="root"></div>
 
     <!-- LOADING OVERLAY -->
-    <div id="loading-overlay">
+    <div id="loading-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 18px; background: rgba(255, 255, 255, 0.7); visibility: hidden;">
       <img src="resources/logo.png"/>
     </div>
 
-    <!-- MODAL -->
+    <!-- FIGHTER MODAL -->
     <section>
-      <dialog class="nes-dialog is-rounded" id="dialog-rounded">
+      <dialog class="nes-dialog is-dark" id="fighter-modal">
         <form method="dialog">
-          <p class="title">Rounded dialog</p>
-          <p>Alert: this is a dialog.</p>
+          <p class="title nes-text is-primary">Edit your fighter</p>
+          <div class="nes-field">
+            <label for="name_field">Your name</label>
+            <input type="text" id="name_field" class="nes-input" maxlength="10" autocomplete="off">
+            <label for="health-progress">Health</label>
+            <div class="label-wrap">
+              <button type="button" id="minus-health" class="nes-btn">-</button>
+              <progress id="health-progress" class="nes-progress is-success"></progress>
+              <button type="button" id="plus-health" class="nes-btn">+</button>
+            </div>
+            <label for="attack-progress">Attack</label>
+            <div class="label-wrap">
+              <button type="button" id="minus-attack" class="nes-btn">-</button>
+              <progress id="attack-progress" class="nes-progress is-error"></progress>
+              <button type="button" id="plus-attack" class="nes-btn">+</button>
+            </div>
+            <label for="defense-progress">Defense</label>
+            <div class="label-wrap">
+              <button type="button" class="nes-btn is-disabled">-</button>
+              <progress id="defense-progress" class="nes-progress is-primary"></progress>
+              <button type="button" class="nes-btn is-disabled">+</button>
+            </div>
+          </div>
           <menu class="dialog-menu">
-            <button class="nes-btn">Cancel</button>
-            <button class="nes-btn is-primary">Confirm</button>
+            <button id="cancel-modal" class="nes-btn is-error">Cancel</button>
+            <button id="select-modal" class="nes-btn is-success">Select</button>
+          </menu>
+        </form>
+      </dialog>
+    </section>
+
+    <!-- WINNER MODAL -->
+    <section>
+      <dialog class="nes-dialog is-dark" id="winner-modal">
+        <form method="dialog">
+          <p class="title nes-text is-primary">WINNER NAME</p>
+          <i class="nes-icon trophy is-large"></i>
+          <menu class="dialog-menu">
+            <button class="nes-btn" id="replay-modal">Replay</button>
+            <button id="main-menu-modal" class="nes-btn is-success">To Main Menu</button>
           </menu>
         </form>
       </dialog>

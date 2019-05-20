@@ -6,16 +6,16 @@ class Fighter {
     this.defense = defense;
   }
 
-  luckyChance(){
+  _luckyChance(){
     return Math.floor(Math.random() * 2) + 1;
   }
 
   getHitPower(){
-    return this.attack * this.luckyChance();
+    return this.attack * this._luckyChance();
   }
 
   getBlockPower(){
-    return this.defense * this.luckyChance();
+    return this.defense * this._luckyChance();
   }
 }
 
