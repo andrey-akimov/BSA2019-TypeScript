@@ -1,13 +1,23 @@
-import { getData } from '../helpers/apiHelper';
+import { getData, IData } from '../helpers/apiHelper';
 
-class FighterService {
-  getFighters() {
+interface IFighterService {
+  getFighters(): Promise<IData[] | IData>,
+  getFighterDetails(_id: string): Promise<IData[] | IData>
+}
+
+class FighterService implements IFighterService {
+  public getFighters() {
     return getData('fighters.json');
   }
 
-  getFighterDetails(_id) {
+  public getFighterDetails(_id) {
     return getData(`details/fighter/${_id}.json`);
   }
 }
 
-export const fighterService = new FighterService();
+const fighterService = new FighterService();
+
+export {
+  fighterService,
+  IFighterService
+}

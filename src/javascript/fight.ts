@@ -1,27 +1,28 @@
 import App from './app';
+import { IFighter } from './Fighter';
 
-let player1;
-let player2;
+let player1: IFighter;
+let player2: IFighter;
 
 const fight = fighter1 => fighter2 => {
   player1 = Object.assign( Object.create( Object.getPrototypeOf(fighter1)), fighter1);
   player2 = Object.assign( Object.create( Object.getPrototypeOf(fighter2)), fighter2);
 
   setTimeout(() => {
-    const root = document.getElementById('root');
+    const root = document.getElementById('root') as HTMLDivElement;
     root.innerHTML = '';
     root.style.backgroundImage = 'url(http://2.bp.blogspot.com/-1jTKOb4ibm8/UxVZ-dSxo9I/AAAAAAAAACU/IIp8fZlucfA/s1600/chino.jpg)';
 
-    const healthBarContainer = document.createElement('div');
+    const healthBarContainer = document.createElement('div') as HTMLDivElement;
     healthBarContainer.classList.add('healthbar-container');
     root.appendChild(healthBarContainer);
 
-    const dummyDiv = document.createElement('div');
+    const dummyDiv = document.createElement('div') as HTMLDivElement;
     dummyDiv.classList.add('dummy');
     root.appendChild(dummyDiv);
 
-    const printFighter = (fighter) => {
-      const fighterImg = document.createElement('img');
+    const printFighter = (fighter): void => {
+      const fighterImg = document.createElement('img') as HTMLImageElement;
       fighterImg.classList.add('fighter');
       const { img, isSecond } = fighter;
       fighterImg.src = img;
@@ -55,12 +56,12 @@ const fight = fighter1 => fighter2 => {
     const healthBar1 = createHealthBar(fighter1.health, fighter1.name);
     const healthBar2 = createHealthBar(fighter2.health, fighter2.name);
 
-    const makePunch = (firstFighter, secondFighter, healthBar) => {
+    const makePunch = (firstFighter, secondFighter, healthBar): void => {
       firstFighter.health = firstFighter.health - secondFighter.getHitPower() - firstFighter.getBlockPower();
       healthBar.value = firstFighter.health;
     };
 
-    const showWinnerModal = (name) => {
+    const showWinnerModal = (name): void => {
       const winnerEl = document.getElementById('winner') as HTMLAudioElement;
       winnerEl.play();
       setTimeout(() => {

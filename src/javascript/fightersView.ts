@@ -3,9 +3,10 @@ import FighterView from './fighterView';
 import Fighter from './Fighter';
 import fight from './fight';
 import { fighterService } from './services/fightersService';
+import { IData } from './helpers/apiHelper';
 
 class FightersView extends View {
-  constructor(fighters) {
+  constructor(fighters: IData[]) {
     super();
     
     this.createFighters(fighters);
@@ -15,10 +16,10 @@ class FightersView extends View {
 
   fightFunc;
 
-  createFighters(fighters) {
+  createFighters(fighters): void {
     const fighterElements = fighters.map(fighter => {
       const fighterView = new FighterView(fighter, this.handleFighterClick.bind(this));
-      return fighterView.element;
+      return fighterView.element as HTMLDivElement;
     });
 
     this.element = this.createElement({ tagName: 'div', classNames: ['fighters'] });
@@ -31,7 +32,7 @@ class FightersView extends View {
       const { _id } = fighter;
       const thisMap = this.fightersDetailsMap;
       if (!thisMap.has(_id) || !thisMap.get(_id).health) {
-        const loadingElement = document.getElementById('loading-overlay');
+        const loadingElement = document.getElementById('loading-overlay') as HTMLDivElement;
         loadingElement.style.visibility = 'visible';
         const fighterDetails = await fighterService.getFighterDetails(_id);
         thisMap.set(_id, { ...fighter, ...fighterDetails });
@@ -40,12 +41,12 @@ class FightersView extends View {
 
       // modal
       const FighterModalEl = document.getElementById('fighter-modal') as HTMLDialogElement;
-      FighterModalEl.showModal();
+      FighterModalEl.showModal() as void;
       const currentFighter = thisMap.get(_id);
       const temporaryData = { ...currentFighter };
       const { name, health, attack, defense } = temporaryData;
   
-      const calculateProgressBar = (elementId, fighterProp, maxVal?) => {
+      const calculateProgressBar = (elementId, fighterProp, maxVal?): void => {
         const progressBarEl = document.getElementById(elementId) as HTMLProgressElement;
         progressBarEl.value = fighterProp;
         progressBarEl.max = maxVal ? maxVal : fighterProp * 2;
@@ -54,7 +55,7 @@ class FightersView extends View {
       calculateProgressBar('attack-progress', attack);
       calculateProgressBar('defense-progress', defense, 4);
 
-      const addProgressBtnListener = (action, prop) => {
+      const addProgressBtnListener = (action: string, prop: string): void => {
         const evListener = () => {
           if ((temporaryData[prop] <= 1 && action === 'minus')
             || (temporaryData[prop] >= currentFighter[prop] * 2 && action !== 'minus')){
@@ -74,7 +75,7 @@ class FightersView extends View {
       const nameInput = document.getElementById('name_field') as HTMLInputElement;
       nameInput.value = name;
 
-      const selectListener = () => {
+      const selectListener = (): void => {
         removeSelectListener();
         const { health, attack, source } = temporaryData;
         if (this.fightFunc) {
@@ -84,7 +85,7 @@ class FightersView extends View {
         }
       };
       const modalSelect = document.getElementById('select-modal');
-      const removeSelectListener = () => modalSelect.removeEventListener('click', selectListener, false);
+      const removeSelectListener = (): void => modalSelect.removeEventListener('click', selectListener, false);
       modalSelect.addEventListener('click', selectListener, false);
       document.getElementById('cancel-modal').addEventListener('click', removeSelectListener, false);
       

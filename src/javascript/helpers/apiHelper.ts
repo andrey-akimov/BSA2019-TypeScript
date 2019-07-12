@@ -1,7 +1,11 @@
-const API_URL = 'https://api.github.com/repos/binary-studio-academy/stage-2-es6-for-everyone/contents/resources/api/';
+interface ICallApi {
+  content: string
+}
 
-function callApi(endpoind, method) {
-  const url = API_URL + endpoind;
+const API_URL: string = 'https://api.github.com/repos/binary-studio-academy/stage-2-es6-for-everyone/contents/resources/api/';
+
+function callApi(endpoind: string, method: string): Promise<ICallApi> {
+  const url: string = API_URL + endpoind;
   const options = {
     method
   };
@@ -15,14 +19,28 @@ function callApi(endpoind, method) {
     });
 }
 
-async function getData(urlEndpoint){
+interface IData {
+  _id: string;
+  name: string;
+  health?: number;
+  attack?: number;
+  defense?: number;
+  source: string;
+}
+
+interface IGetData {
+  (urlEndpoint: string): Promise<IData[] | IData>;
+}
+
+const getData: IGetData = async function (urlEndpoint) {
   try {
     const apiResult = await callApi(urlEndpoint, 'GET');
+    const content: string = apiResult.content;
 
-    return JSON.parse(atob(apiResult.content));
+    return JSON.parse(atob(content));
   } catch (error) {
     throw error;
   }
 }
 
-export { getData }
+export { getData, IData }
