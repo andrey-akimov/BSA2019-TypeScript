@@ -16,11 +16,12 @@ class App {
       const fighters = await fighterService.getFighters();
       const fightersView = new FightersView(fighters);
       const fightersElement = fightersView.element;
-      root.innerHTML = '';
+      App.rootElement.innerHTML = '';
 
       App.rootElement.appendChild(fightersElement);
 
-      const click = () => document.getElementById('click').play();
+      const clickEl = document.getElementById('click') as HTMLAudioElement;
+      const click = clickEl.play;
       document.addEventListener('click', click, false)
     } catch (error) {
       console.warn(error);

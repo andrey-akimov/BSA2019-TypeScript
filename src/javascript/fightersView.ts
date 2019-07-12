@@ -1,14 +1,13 @@
 import View from './view';
 import FighterView from './fighterView';
 import Fighter from './Fighter';
-import fight from './fight.js';
+import fight from './fight';
 import { fighterService } from './services/fightersService';
 
 class FightersView extends View {
   constructor(fighters) {
     super();
     
-    this.handleClick = this.handleFighterClick.bind(this);
     this.createFighters(fighters);
   }
 
@@ -18,7 +17,7 @@ class FightersView extends View {
 
   createFighters(fighters) {
     const fighterElements = fighters.map(fighter => {
-      const fighterView = new FighterView(fighter, this.handleClick);
+      const fighterView = new FighterView(fighter, this.handleFighterClick.bind(this));
       return fighterView.element;
     });
 
@@ -40,15 +39,16 @@ class FightersView extends View {
       }
 
       // modal
-      document.getElementById('fighter-modal').showModal();
+      const FighterModalEl = document.getElementById('fighter-modal') as HTMLDialogElement;
+      FighterModalEl.showModal();
       const currentFighter = thisMap.get(_id);
       const temporaryData = { ...currentFighter };
       const { name, health, attack, defense } = temporaryData;
   
-      const calculateProgressBar = (elementId, fighterProp, maxVal) => {
-        const progressBar = document.getElementById(elementId);
-        progressBar.value = fighterProp;
-        progressBar.max = maxVal ? maxVal : fighterProp * 2;
+      const calculateProgressBar = (elementId, fighterProp, maxVal?) => {
+        const progressBarEl = document.getElementById(elementId) as HTMLProgressElement;
+        progressBarEl.value = fighterProp;
+        progressBarEl.max = maxVal ? maxVal : fighterProp * 2;
       }
       calculateProgressBar('health-progress', health);
       calculateProgressBar('attack-progress', attack);
@@ -61,7 +61,8 @@ class FightersView extends View {
               return false;
             }
           temporaryData[prop] = action === 'minus' ? temporaryData[prop] - 1 : temporaryData[prop] + 1;
-          document.getElementById(`${prop}-progress`).value = temporaryData[prop];
+          const progressBarEl = document.getElementById(`${prop}-progress`) as HTMLProgressElement;
+          progressBarEl.value = temporaryData[prop];
         }
         document.getElementById(`${action}-${prop}`).addEventListener('click', evListener, false);
       }
@@ -70,7 +71,7 @@ class FightersView extends View {
       addProgressBtnListener('minus', 'attack');
       addProgressBtnListener('plus', 'attack');
   
-      const nameInput = document.getElementById('name_field');
+      const nameInput = document.getElementById('name_field') as HTMLInputElement;
       nameInput.value = name;
 
       const selectListener = () => {

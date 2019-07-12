@@ -61,9 +61,11 @@ const fight = fighter1 => fighter2 => {
     };
 
     const showWinnerModal = (name) => {
-      document.getElementById('winner').play();
+      const winnerEl = document.getElementById('winner') as HTMLAudioElement;
+      winnerEl.play();
       setTimeout(() => {
-        document.getElementById('winner-modal').showModal();
+        const winnerModalEl =  document.getElementById('winner-modal') as HTMLDialogElement;
+        winnerModalEl.showModal();
         document.querySelector('#winner-modal .title').innerHTML = `${name} won!`;
         document.getElementById('replay-modal').addEventListener(
           'click',
@@ -85,7 +87,8 @@ const fight = fighter1 => fighter2 => {
 
       makePunch(fighter2, fighter1, healthBar2);
       console.log(`${fighter2.name} left ${fighter2.health} points of damage`);
-      document.getElementById('kick').play();
+      const kickEl = document.getElementById('kick') as HTMLAudioElement;
+      kickEl.play();
       if (fighter2.health <= 0) {
         console.log(`${fighter1.name} wins!`);
         showWinnerModal(fighter1.name);

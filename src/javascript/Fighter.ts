@@ -1,5 +1,12 @@
 class Fighter {
-  constructor(name, health, attack, defense, img, isSecond){
+  constructor(
+    public name: string,
+    public health: number,
+    public attack: number,
+    public defense: number,
+    public img: string,
+    public isSecond: boolean
+  ){
     this.name = name;
     this.health = health;
     this.attack = attack;
@@ -8,7 +15,7 @@ class Fighter {
     this.isSecond = isSecond;
   }
 
-  _luckyChance(){
+  private _luckyChance(){
     return Math.floor(Math.random() * 2) + 1;
   }
 
